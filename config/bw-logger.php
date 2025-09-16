@@ -3,6 +3,8 @@
 return [
     // canale di default per Monolog
     'channel' => env('BW_LOG_CHANNEL', 'bwise'),
+    'file_min_level'     => env('BW_LOG_FILE_LEVEL', 'debug'),
+    'logstash_min_level' => env('BW_LOG_LOGSTASH_LEVEL', 'error'),
 
     // invio diretto a Logstash (TCP/HTTP)
     'logstash' => [
