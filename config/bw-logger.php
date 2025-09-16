@@ -4,18 +4,17 @@ return [
     // canale di default per Monolog
     'channel' => env('BW_LOG_CHANNEL', 'bwise'),
     'file_min_level'     => env('BW_LOG_FILE_LEVEL', 'debug'),
-    'logstash_min_level' => env('BW_LOG_LOGSTASH_LEVEL', 'error'),
 
     // invio diretto a Logstash (TCP/HTTP)
     'logstash' => [
-        'enabled'   => env('BW_LOGSTASH_ENABLED', true),
-        'driver'    => env('BW_LOGSTASH_DRIVER', 'tcp'), // tcp|http
-        'host'      => env('BW_LOGSTASH_HOST', 'localhost'),
-        'port'      => env('BW_LOGSTASH_PORT', 5000),
-        'path'      => env('BW_LOGSTASH_HTTP_PATH', '/'),
-        'timeout'   => env('BW_LOGSTASH_TIMEOUT', 2.0),
-        'token'   => env('BW_LOGSTASH_TOKEN', null),
+        'enabled' => env('LOGGER_SEND_TO_ELK', true),
+        'driver'  => env('LOGGER_TRANSPORT_TYPE', 'http'),
+        'host'    => env('HTTP_LOGGER_ENDPOINT', 'http://127.0.0.1:8080'),
+        'port'    => env('TCP_LOGGER_PORT', 5000),
+        'token'   => env('HTTP_LOGGER_TOKEN'),
+        'timeout' => 2.0,
     ],
+    'logstash_min_level' => env('LOGGER_SEND_TO_ELK_MIN_LEVEL', 'error'),
 
     // campi comuni
     'app' => [
