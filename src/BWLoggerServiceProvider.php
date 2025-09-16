@@ -42,7 +42,7 @@ class BWLoggerServiceProvider extends ServiceProvider
 
             // handler LOGSTASH: opzionale
             if (($cfg['logstash']['enabled'] ?? false) === true) {
-                $monolog->pushHandler(new BwiseLogstashHandler(
+                $monolog->pushHandler(new BWLogstashHandler(
                     $cfg['logstash'],
                     $logstashMin
                 ));
@@ -53,7 +53,7 @@ class BWLoggerServiceProvider extends ServiceProvider
 
         $this->app->alias(\BwiseMedia\BWLogger\Logger::class, 'bw-logger');
     }
-    
+
     public function boot(): void
     {
         // publish config
