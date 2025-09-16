@@ -12,7 +12,7 @@ return [
         'host'    => env('HTTP_LOGGER_ENDPOINT', 'http://127.0.0.1:8080'),
         'port'    => env('TCP_LOGGER_PORT', 5000),
         'token'   => env('HTTP_LOGGER_TOKEN'),
-        'timeout' => 2.0,
+        'timeout'   => env('BW_LOGSTASH_TIMEOUT',2.0),
     ],
     'logstash_min_level' => env('LOGGER_SEND_TO_ELK_MIN_LEVEL', 'error'),
 
