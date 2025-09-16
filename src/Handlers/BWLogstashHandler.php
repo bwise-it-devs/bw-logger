@@ -38,15 +38,27 @@ class BWLogstashHandler extends AbstractProcessingHandler
 
     protected function sendHttp(string $payload): void
     {
-        $url = sprintf('http://%s:%d%s', $this->cfg['host'], $this->cfg['port'], $this->cfg['path'] ?? '/');
+        $url = sprintf(
+            'http://%s:%d%s',
+            $this->cfg['host'],
+            $this->cfg['port'],
+            $this->cfg['path'] ?? '/'
+        );
+
+        $headers = ["Content-Type: application/json\r\n"];
+        if (!empty($this->cfg['token'])) {
+            $headers[] = "Authorization: Bearer {$this->cfg['token']}\r\n";
+        }
+
         $context = stream_context_create([
             'http' => [
                 'method'  => 'POST',
-                'header'  => "Content-Type: application/json\r\n",
+                'header'  => implode('', $headers),
                 'content' => $payload,
                 'timeout' => $this->cfg['timeout'],
             ]
         ]);
+
         @file_get_contents($url, false, $context);
     }
 }
