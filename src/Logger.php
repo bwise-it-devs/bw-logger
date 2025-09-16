@@ -24,13 +24,23 @@ class Logger
         $this->monolog->debug($message, $this->enrich($context));
     }
     // … altri livelli
-
     protected function enrich(array $context): array
     {
-        $context = ContextSanitizer::sanitize($context, $this->cfg['sanitize_keys']);
-        return array_merge($context, [
-            'app' => $this->cfg['app'],
-            'ts'  => now()->toIso8601String(),
-        ]);
+        // opzionale: sanitizzazione
+        if (class_exists(\BwiseMedia\BWLogger\Helpers\ContextSanitizer::class)) {
+            $context = \BwiseMedia\BWLogger\Helpers\ContextSanitizer::sanitize(
+                $context,
+                $this->cfg['sanitize_keys'] ?? []
+            );
+        }
+
+        // rimuovi chiavi che non devono sovrascrivere il payload
+        unset($context['app'], $context['environment'], $context['timestamp'], $context['level'], $context['message'], $context['ts']);
+
+        // aggiungi meta in stile Node (stringhe, non oggetti)
+        $context['app']         = $this->cfg['app']['name'] ?? env('APP_NAME', 'unknown-app');
+        $context['environment'] = $this->cfg['app']['env']  ?? env('APP_ENV', 'development');
+
+        return $context;
     }
 }
