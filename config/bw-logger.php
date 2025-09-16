@@ -12,6 +12,7 @@ return [
         'port'      => env('BW_LOGSTASH_PORT', 5000),
         'path'      => env('BW_LOGSTASH_HTTP_PATH', '/'),
         'timeout'   => env('BW_LOGSTASH_TIMEOUT', 2.0),
+        'token'   => env('BW_LOGSTASH_TOKEN', null),
     ],
 
     // campi comuni
