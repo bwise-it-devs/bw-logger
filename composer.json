@@ -1,0 +1,28 @@
+{
+    "name": "bwisemedia/laravel-bw-logger",
+    "description": "Bwise logger for Laravel with Monolog handler and Logstash/OpenSearch integration.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "BwiseMedia\\BWLogger\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=8.1",
+        "illuminate/support": "^10.0|^11.0",
+        "monolog/monolog": "^3.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BwiseMedia\\BWLogger\\BWLoggerServiceProvider"
+            ],
+            "aliases": {
+                "BWLogger": "BwiseMedia\\BWLogger\\Facades\\BWLogger"
+            }
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
